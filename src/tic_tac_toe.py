@@ -31,14 +31,24 @@ class TicTacToe:
 		#pos is 0-9
 		#X_0 should be either "X" or "0"
 
+
 		if self.won == None and pos >= 0 and pos < 9 and (X_0 == "X" or X_0 == "0") and self.board[pos] == " ":
 			self.board[pos] = X_0
 
 			self.won = self.check_win()
+
 			if display: self.print_board()
+
 			return True
 
-		else: return False
+		else:
+			if display: self.print_board()
+			return False
+
+
+	def reset(self):
+		self.board = [" "]*9
+		self.won = None
 
 	
 	def check_win(self):
@@ -46,6 +56,8 @@ class TicTacToe:
 			if self.board[state[0]] != " ":
 				if (self.board[state[0]] == self.board[state[1]]) and (self.board[state[1]] == self.board[state[2]]):
 					return self.board[state[0]]
+		if " " not in self.board:
+			return " "
 		return None
 
 
