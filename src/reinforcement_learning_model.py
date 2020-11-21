@@ -15,7 +15,7 @@ class ActionValueModel:
 		return .5**n
 
 
-	def take_action(self, environment, state, actions, prior_state_actions):
+	def take_action(self, environment, state, actions, prior_state_actions, log = True):
 		
 		action = None
 
@@ -53,7 +53,7 @@ class ActionValueModel:
 		#add action and state into our list of prior actions
 		if valid:
 				prior_state_actions.append((state, action))
-				self.back_propogate_reward(reward, prior_state_actions)
+				if log : self.back_propogate_reward(reward, prior_state_actions)
 
 		return prior_state_actions
 		
@@ -61,13 +61,16 @@ class ActionValueModel:
 		gamma = len(prior_state_actions)
 
 		for prior_state, prior_action in prior_state_actions:
-			prior_Q = self.Q_a_s.get(prior_state,{}).get(prior_action)
+			prior_Q = None
+			prior_dict = self.Q_a_s.get(prior_state)
+			if prior_dict: prior_Q = prior_dict.get(prior_action)
 
 			if prior_Q:
-				self.Q_a_s[prior_state] = {prior_action : prior_Q + self.step_size * self.discounting_factor(gamma) * (reward - prior_Q)}
+				self.Q_a_s[prior_state][prior_action] = prior_Q + self.step_size * self.discounting_factor(gamma) * (reward - prior_Q)
+			elif prior_dict:
+				self.Q_a_s[prior_state][prior_action] = self.step_size * self.discounting_factor(gamma) * reward
 			else:
 				self.Q_a_s[prior_state] = {prior_action : self.step_size * self.discounting_factor(gamma) * reward}
-
 			gamma -= 1
 
 

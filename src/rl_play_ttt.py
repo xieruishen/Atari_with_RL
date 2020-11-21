@@ -10,7 +10,7 @@ import tic_tac_toe as ttt
 if __name__ == "__main__":
 
 	ttt = ttt.TicTacToe()
-	rl_agent = avm.ActionValueModel()
+	rl_agent = avm.ActionValueModel(epsilon = 0.2)
 
 
 	actions = [ (0, 'X'),
@@ -26,31 +26,49 @@ if __name__ == "__main__":
 
 
 
+
+
 	def envir(pos, X_0):
 		reward = 0
 
 		valid = ttt.play(pos, X_0)
 		if valid: ttt.ai_play('0')
 
-		if ttt.won == '0' or ttt.won == ' ': reward = -1
-		if ttt.won == 'X': reward = 1
-
 		return (reward, valid)
 
 
-	prior_state_actions = []
-
-	for i in range(100000):
-		while ttt.won is None:
-			prior_state_actions = rl_agent.take_action(envir, "".join(ttt.board), actions, prior_state_actions)
-
-		ttt.reset()
+	def train(iterations):
 		prior_state_actions = []
-				
-	for board, actions in rl_agent.Q_a_s.items():
-		print(board + ":")
-		for actions, action in actions.items():
-			print("    " + str(actions) + " " +str(action))
+
+		for i in range(iterations):
+			while ttt.won is None:
+				prior_state_actions = rl_agent.take_action(envir, "".join(ttt.board), actions, prior_state_actions)
+			
+			if ttt.won == 'X': rl_agent.back_propogate_reward(1, prior_state_actions)
+			else: rl_agent.back_propogate_reward(-1, prior_state_actions)
+			ttt.reset()
+			prior_state_actions = []
+
+
+	def test(sample_size):
+		prior_state_actions = []
+		wins = 0
+
+		for i in range(sample_size):
+			while ttt.won is None:
+				prior_state_actions = rl_agent.take_action(envir, "".join(ttt.board), actions, prior_state_actions)
+			if ttt.won == 'X': wins +=1
+			ttt.reset()
+			prior_state_actions = []
+		return (wins/sample_size)
+		
+
+	for i in range(100):
+		print(test(1000))
+		train(100)
+	
+
+	print(rl_agent.Q_a_s)
 
 
 
