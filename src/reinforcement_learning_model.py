@@ -2,17 +2,13 @@ import random
 
 class ActionValueModel:
 
-	def __init__(self, epsilon = 0.2, gamma = 0.5):
+	def __init__(self, epsilon = 0.2, discounting_factor = lambda a : .5**a):
 
 		self.Q_a_s = {}
 		self.epsilon = epsilon
-		self.step_size = 0.5
-		self.gamma = gamma
+		self.step_size = .5
+		self.discounting_factor = discounting_factor
 		random.seed()
-
-
-	def discounting_factor(self, n):
-		return .5**n
 
 
 	def take_action(self, environment, state, actions, prior_state_actions, log = True):
