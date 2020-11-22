@@ -139,14 +139,3 @@ class Mancala:
 		print(board_visual, end = "\n\n")
 		if self.won: 
 			print(self.won + "\n")
-			
-
-
-if __name__ == "__main__":
-	manc = Mancala()
-	manc.print_board()
-
-	for i in range(20):
-		manc.dumb_ai("bottom")
-		manc.print_board()
-

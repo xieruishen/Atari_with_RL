@@ -2,11 +2,11 @@ import random
 
 class ActionValueModel:
 
-	def __init__(self, epsilon = 0.2, discounting_factor = lambda a : .5**a):
+	def __init__(self, epsilon = 0.2, step_size = .5, discounting_factor = lambda a : .5**a):
 
 		self.Q_a_s = {}
 		self.epsilon = epsilon
-		self.step_size = .5
+		self.step_size = step_size
 		self.discounting_factor = discounting_factor
 		random.seed()
 
@@ -25,15 +25,13 @@ class ActionValueModel:
 				# get the dictionary of actions for our current state
 				Q_a = self.Q_a_s[state]
 
-
 				# find the action that maximizes q
 				max_Q = 0
 				
-				for action_option in actions:
-					q = Q_a.get(action_option) 
-					if q is not None and q > max_Q:
-						max_q = Q_a[action_option]
-						action = action_option
+				for past_action, reward in Q_a.items():
+					if reward > max_Q:
+						max_Q = reward
+						action = past_action
 
 		if action is None:
 			#take random action
@@ -49,7 +47,9 @@ class ActionValueModel:
 		#add action and state into our list of prior actions
 		if valid:
 				prior_state_actions.append((state, action))
-				if log : self.back_propogate_reward(reward, prior_state_actions)
+
+				#if we're logging every reward, back propogate the given reward
+				if log: self.back_propogate_reward(reward, prior_state_actions)
 
 		return prior_state_actions
 		
