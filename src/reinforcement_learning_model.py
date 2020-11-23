@@ -5,6 +5,7 @@ class ActionValueModel:
 	def __init__(self, epsilon = 0.2, step_size = .5, discounting_factor = lambda a : .5**a):
 
 		self.Q_a_s = {}
+		self.N_a_s = {}
 		self.epsilon = epsilon
 		self.step_size = step_size
 		self.discounting_factor = discounting_factor
@@ -16,7 +17,7 @@ class ActionValueModel:
 		action = None
 
 		#check if we've seen this state before
-		if self.Q_a_s.get(state) is not None:
+		if self.Q_a_s.get(state) is not None:  
 
 			#randomly sample greedy vs random action
 			if random.random() > self.epsilon:
@@ -62,11 +63,14 @@ class ActionValueModel:
 			if prior_dict: prior_Q = prior_dict.get(prior_action)
 
 			if prior_Q:
-				self.Q_a_s[prior_state][prior_action] = prior_Q + self.step_size * self.discounting_factor(gamma) * (reward - prior_Q)
+				self.Q_a_s[prior_state][prior_action] = (prior_Q*self.N_a_s[prior_state][prior_action] + self.step_size * self.discounting_factor(gamma) * (reward - prior_Q))/(self.N_a_s[prior_state][prior_action] +1)
+				self.N_a_s[prior_state][prior_action] += 1 
 			elif prior_dict:
 				self.Q_a_s[prior_state][prior_action] = self.step_size * self.discounting_factor(gamma) * reward
+				self.N_a_s[prior_state][prior_action] = 1
 			else:
 				self.Q_a_s[prior_state] = {prior_action : self.step_size * self.discounting_factor(gamma) * reward}
+				self.N_a_s[prior_state] = {prior_action : 1}
 			gamma -= 1
 
 
