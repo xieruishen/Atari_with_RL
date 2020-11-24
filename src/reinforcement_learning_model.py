@@ -1,4 +1,5 @@
 import random
+import pickle
 
 class ActionValueModel:
 
@@ -73,7 +74,20 @@ class ActionValueModel:
 				self.N_a_s[prior_state] = {prior_action : 1}
 			gamma -= 1
 
+	def save_learning(self, filename):
+		f_Q = open(filename+"Q.pkl", "wb")
+		f_N = open(filename+"N.pkl", "wb")
+		pickle.dump(self.Q_a_s, f_Q)
+		pickle.dump(self.N_a_s, f_N)
+		f_Q.close()
+		f_N.close()
 
-
+	def open_learning(self, filename):
+		f_Q = open(filename+"Q.pkl", "rb")
+		f_N = open(filename+"N.pkl", "rb")
+		self.Q_a_s = pickle.load(f_Q)
+		self.N_a_s = pickle.load(f_N)
+		f_Q.close()
+		f_N.close()
 
 

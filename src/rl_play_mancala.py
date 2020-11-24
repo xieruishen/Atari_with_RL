@@ -14,7 +14,7 @@ if __name__ == "__main__":
 	manc = mancala.Mancala()
 
 	#create an instance of our rl agent without any discounting factor (we don't care if we win in 5 steps or 10)
-	rl_agent = avm.ActionValueModel(epsilon = 0.01, discounting_factor = lambda a : 1)
+	rl_agent = avm.ActionValueModel(epsilon = 0.5, discounting_factor = lambda a : 1)
 	
 
 	#map out valid actions for each player
@@ -52,6 +52,37 @@ if __name__ == "__main__":
 			valid = True
 			manc.dumb_ai(switch[top_bottom])
 
+		#if it's a valid move that ended in a free turn, just return true 
+		elif valid_state == 2:
+			valid = True
+
+
+		return (reward, valid)
+
+
+	def hacky_user_envir(pos, top_bottom):
+		
+		switch = {"top":"bottom",
+				"bottom" : "top"}
+		
+		#we back propogate the reward at the end, so there's no need to track reward points as we go
+		reward = 0
+		valid = False
+
+		#try to play the given position 
+		valid_state = manc.play(pos, top_bottom)
+
+		#if it's a valid move, set valid to true and let the ai take a move
+		if valid_state == 1: 
+			valid = True
+			
+			manc.print_board()
+			user_pos = input("what's your play?")
+			ret = manc.play(int(user_pos), "bottom")
+			while ret == 2:
+				manc.print_board()
+				user_pos = input("what's your play?")
+				ret = manc.play(int(user_pos), "bottom")
 		#if it's a valid move that ended in a free turn, just return true 
 		elif valid_state == 2:
 			valid = True
@@ -141,8 +172,8 @@ if __name__ == "__main__":
 
 		space_mapped.append(state_action_pairs)
 
-	rl_agent.epsilon = 0
-	print(test_reward(10))
+	
+	
 
 	plt.subplot(2,1,1)
 	plt.plot(win_percentage)
@@ -152,6 +183,13 @@ if __name__ == "__main__":
 	plt.plot(space_mapped)
 	plt.show()
 
+
+
+	
+	prior_state_actions =[]
+	manc.epsilon = 0
+	while manc.won is None:
+				prior_state_actions = rl_agent.take_action(hacky_user_envir, "".join(str(manc.board)), actions_top, prior_state_actions, log = False)
 
 	
 
