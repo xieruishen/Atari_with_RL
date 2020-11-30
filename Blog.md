@@ -27,6 +27,8 @@ In implementing this agent, I accidentally introduced an interesting bug into th
 
 
 #### 11/22/20 - 11/23/20 (Sherrie)
+[Link](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7)  to full Google Collab Notebook.
+
 Additionally, I implemented a path finding agent using Reinforcement Learning following this [tutorial](https://towardsdatascience.com/implement-grid-world-with-q-learning-51151747b455). Intially, the RL agenet was able to find the most optimal path in a simple 2x3 grid with one obstacle very quickly with less than 10 rounds. As I scaled up the grid environment and increase the complexity of the obstacle, I have encountered the following problem:
 * Each round takes too long as I allow the agent to take an action that will go off bound of the grid world. Even though the agenet will never be in such state, but it wastes significantly amount of runtime for the agenet to consider such action as even viable.
 * The reward function was too simple as it only assign a positive reward to the goal state and negative reward to going into the obstacle position. What happened was when there is no adjacent obstacle but there are obstacles within two or three rows/columns, the agent often got stuck in going back an forth between two states as it does not prioritize actions that will leads itself closer to the goal.
@@ -37,16 +39,14 @@ To address the above problems, I have tried the following:
 * I increase the complexity of the reward function to consider the Manhattan distance of the current position and the next position. An action that will move the agent closer to the goal will yield high reward than one that will move the agent farther from the goal. This change allows the agent to reach the end goal faster and avoid getting stuck when there is no adjacent obstacles.
 * To address the problem of agent getting stuck around obstacles, there is no direct strategy but tweeking the reward assigned to getting into an obstacle state, tuning the explore vs exploit rate and increasing the number of rounds for the agent to play.
 
-The final result of training an RL agent to find the optimal path in a 15x15 grid world with relatively complex obstacles is shown below.
+The final result of training an RL agent for 300 rounds to find the optimal path in a 15x15 grid world with relatively complex obstacles is shown below.
 
 Grid World (left) & Optimal Path(right):
 
-<img src= "images/path_finding_environment.png" width = 46%> <img src= "images/path_finding_environment.png" width = 46%>
+<img src= "images/path_finding_environment.png" width = 46%> <img src= "images/path_finding_route.png" width = 46%>
 
 Runtime(seconds) per Round (left) & Total Number of Explored States per Round(right):
 <img src= "images/path_finding_runtime.png" width = 46%> <img src= "images/path_finding_states_num.png" width = 46%>
-
-[Link](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7)  to full Google Collab Notebook.
 
 ### Blog 1.1
 
