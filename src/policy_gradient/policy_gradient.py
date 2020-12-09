@@ -5,8 +5,6 @@
 import gym
 import numpy as np
 import matplotlib.pyplot as plt
-from tqdm import tqdm, trange
-import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -32,7 +30,8 @@ class policy_estimator_network():
         action_probs = self.network(torch.FloatTensor(state))
         return action_probs
 
-def discount_rewards(rewards, gamma=0.5):
+
+def discount_rewards(rewards, gamma=0.99):
     r = np.array([gamma**i * rewards[i] 
         for i in range(len(rewards))])
     # Reverse the array direction for cumsum and then
@@ -42,7 +41,7 @@ def discount_rewards(rewards, gamma=0.5):
 
 
 def reinforce(env, policy_estimator, num_episodes=2000,
-              batch_size=2, gamma=0.999999):
+              batch_size=10, gamma=0.99):
     # Set up lists to hold results
     total_rewards = []
     batch_rewards = []
@@ -51,7 +50,7 @@ def reinforce(env, policy_estimator, num_episodes=2000,
     batch_counter = 1
     
     # Define optimizer
-    optimizer = optim.Adam(policy_estimator.network.parameters(), lr=0.001)
+    optimizer = optim.Adam(policy_estimator.network.parameters(), lr=0.01)
     
     action_space = np.arange(env.action_space.n)
     ep = 0
@@ -67,8 +66,10 @@ def reinforce(env, policy_estimator, num_episodes=2000,
             action_probs = policy_estimator.predict(s_0).detach().numpy()
             action = np.random.choice(action_space, p=action_probs)
             
+            # take a step in the environment
             s_1, r, done, _ = env.step(action)
             
+            #append items to our lists
             states.append(s_0)
             rewards.append(r)
             actions.append(action)
@@ -88,21 +89,21 @@ def reinforce(env, policy_estimator, num_episodes=2000,
                 
                 # If batch is complete, update network
                 if batch_counter == batch_size:
+                    
                     #set gradients to 0
                     optimizer.zero_grad()
 
+                    #create tensors of our states and rewards
                     state_tensor = torch.FloatTensor(batch_states)
                     reward_tensor = torch.FloatTensor(batch_rewards)
-
-                    # Actions are used as indices, must be LongTensor
                     action_tensor = torch.LongTensor(batch_actions)
                     
-                    # Calculate loss
+                    # Calculate the log probability of all actions at all states
                     logprob = torch.log(policy_estimator.predict(state_tensor))
 
-                    action_tensor = torch.reshape(action_tensor, (1, len(action_tensor)))
+                    action_tensor = torch.reshape(action_tensor, (len(action_tensor), 1))
 
-                    selected_logprobs = reward_tensor * logprob.gather(1, action_tensor).squeeze()
+                    selected_logprobs = reward_tensor * torch.gather(logprob, 1, action_tensor).squeeze()
 
                     loss = -selected_logprobs.mean()
                     
@@ -115,8 +116,6 @@ def reinforce(env, policy_estimator, num_episodes=2000,
                     batch_actions = []
                     batch_states = []
                     batch_counter = 1
-
-                    print(policy_estimator.network[0].weight)
                     
                 avg_rewards = np.mean(total_rewards[-100:])
                 # Print running average
@@ -127,9 +126,9 @@ def reinforce(env, policy_estimator, num_episodes=2000,
 
 
 
-env = gym.make('CartPole-v1')
+env = gym.make('LunarLander-v2')
 policy_est = policy_estimator_network(env)
-rewards = reinforce(env, policy_est, num_episodes = 3000)
+rewards = reinforce(env, policy_est, num_episodes = 1000)
 
 
 s_0 = env.reset()
