@@ -78,30 +78,31 @@ I've also included a few gifs of the progress of the agent as it learned to land
 
 ![Figure 1](./images/single_cpu.png)
 
-#### *Figure 1: Training Progress*
-
-
-
+#### *Figure 1: Training Progress*  
+\
+\
 
 
 ![Figure 2](./images/Initial_No_Training.gif)
 
-#### *Figure 2: No Training*
-
-
-
+#### *Figure 2: No Training*  
+\
+\
+  
 
 
 ![Figure 3](./images/9000_Episodes.gif)
 
-#### *Figure 3: 9000 Episodes*
-
+#### *Figure 3: 9000 Episodes*  
+\
+\
 
 
 ![Figure 4](./images/21000_Episodes.gif)
 
-#### *Figure 4: 21000 Episodes*
-
+#### *Figure 4: 21000 Episodes*  
+\
+\
 
 
 As a final note, a perceptive eye will notice that even after 21000 episodes, the agent doesn't actually "land"; it hovers above the goal and touches down for a moment, but doesn't shut down the engine and receive the final, very high reward. I'm interested in trying to achieve this goal, but I was hoping to decrease the computational time of the model before training it further. My vanilla policy gradient model all works on a single cpu process, so each episode is computed sequentially. Calculating the episodes takes much longer than training the model, so this sequential computation of episodes is the current bottleneck. Instead of training after each episode, the vanilla implementation computes batches of episodes, aggregates the states, actions and rewards from all episodes in the batch, then computes the loss and gradient from these batches of data, so as to avoid altering the model too much.
