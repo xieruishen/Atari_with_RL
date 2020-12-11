@@ -165,13 +165,12 @@ def reinforce_multiprocess(envs, policy_estimator, num_episodes=2000, gamma=0.99
     action_space = np.arange(envs[0].action_space.n)
     ep = 0
 
-    pool_mapping = [(env, policy_estimator, action_space) for env in envs]
-
     while ep < num_episodes:
         
-        
-        with Pool(5) as p:
-            batch = starmap(run_episode, pool_mapping) #p.starmap breaks the model????????
+        pool_mapping = [(env, policy_estimator, action_space) for env in envs]
+
+        with Pool(4) as p:
+            batch = p.starmap(run_episode, pool_mapping) #p.starmap breaks the model????????
 
             for states, actions, rewards in batch:
                 
