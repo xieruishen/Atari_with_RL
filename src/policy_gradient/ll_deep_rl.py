@@ -12,8 +12,6 @@ gym.envs.register(
          max_episode_steps=400,
     )
 
-envs = [gym.make('Cappedlunar-v0')]*4
-
 run_env = gym.make('Cappedlunar-v0')
 run_env = gym.wrappers.Monitor(run_env, "recordings", video_callable=lambda episode_id: False, force=True)
 
