@@ -50,7 +50,7 @@ initial_time = time.time()
 
 
 run_env = gym.make('Breakout-v0')
-run_env = gym.wrappers.Monitor(run_env, "recordings", video_callable=lambda episode_id: (episode_id%5 == 0), force=True)
+run_env = gym.wrappers.Monitor(run_env, "recordings", video_callable=lambda episode_id: (episode_id%50 == 0), force=True)
 run_env = AtariPreProcessingWrapper(run_env, 4)
 
 policy_gradient_agent = pg.policy_estimator_network_atari(run_env)

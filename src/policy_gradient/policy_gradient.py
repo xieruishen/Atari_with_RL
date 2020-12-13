@@ -86,7 +86,7 @@ class policy_estimator_network():
         batch_counter = 1
         
         # Define optimizer
-        optimizer = optim.Adam(self.network.parameters(), lr=0.0001)
+        optimizer = optim.Adam(self.network.parameters(), lr=0.001)
         
         
         ep = 0
@@ -248,7 +248,7 @@ class policy_estimator_network_atari():
         batch_counter = 1
         
         # Define optimizer
-        optimizer = optim.Adam(self.network.parameters(), lr=0.0001)
+        optimizer = optim.Adam(self.network.parameters(), lr=0.0003)
         
         
         ep = 0
@@ -302,7 +302,8 @@ class policy_estimator_network_atari():
                 
             avg_rewards = np.mean(total_rewards[-100:])
             # Print running average
-            print("\r \n \n", ep, avg_rewards, end="\033[F \033[F")
+            print(self.network[5].weight)
+            print("\r", ep, avg_rewards, end="")
             ep += batch_size
                     
         return total_rewards        
