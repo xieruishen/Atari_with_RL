@@ -27,7 +27,7 @@ time_per_comp = []
 
 for i in range(1000):
 
-	rewards = policy_est.reinforce_multiprocess(envs, num_episodes = 100)
+	rewards = policy_est.reinforce(run_env, num_episodes = 100)
 	rewards_over_time.append(sum(rewards)/100)
 
 	time_per_comp.append((time.time()-initial_time)/60)
