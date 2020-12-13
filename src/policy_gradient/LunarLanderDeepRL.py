@@ -12,7 +12,7 @@ gym.envs.register(
          max_episode_steps=400,
     )
 
-envs = [gym.make('Cappedlunar-v0')]*2
+envs = [gym.make('Cappedlunar-v0')]*4
 
 run_env = gym.make('Cappedlunar-v0')
 run_env = gym.wrappers.Monitor(run_env, "recordings", video_callable=lambda episode_id: False, force=True)
@@ -27,7 +27,7 @@ time_per_comp = []
 
 for i in range(1000):
 
-	rewards = pg.reinforce_multiprocess(envs, policy_est, num_episodes = 100)
+	rewards = policy_est.reinforce_multiprocess(envs, num_episodes = 100)
 	rewards_over_time.append(sum(rewards)/100)
 
 	time_per_comp.append((time.time()-initial_time)/60)
@@ -41,7 +41,7 @@ for i in range(1000):
 	plt.ylabel("Time (minutes, cumulative)")
 	plt.pause(0.0001)
 
-	pickle.dump( policy_est, open( "policy.p", "wb" ) )
+	#pickle.dump( policy_est, open( "policy.p", "wb" ) )
 
 	if i%10 == 0:
 		s_0 = run_env.reset()
