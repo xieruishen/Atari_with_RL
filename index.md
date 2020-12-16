@@ -18,9 +18,12 @@ Reinforcement learning is a topic applicable to many, many problems in computer 
 ## Mathematical Concepts
 
 ### Q Learning
+Q-Learning is a method used to map out reward spaces in a finate markov chain environment. The Q Learning agent learns an action-value function, Q, which directly approximates q⇤, the optimal action-value functionfor the environment.  
+At any given state, a random draw with probability epsilon is made to decide whether to take a random valid action, or to take an action that optimizes the chances of winning based on an internal graph of rewards (The Q graph). The state is then updated based on the action and the action of the opponent, and another draw is made for the new state. When the game reaches completion, a reward, based on whether the agent won or lost, is then back propagated through the graph of the prior state action pairs to map out the probability of reward given each action at each state, Q. This graph is populated by playing the game, so over time the agent gets better and better at maximizing the reward over time.
 
 ## Implementation
 ### Tic Tac Toe and Mancala
+
 #### System Architecture
 #### Result 
 link to blog post section
@@ -51,7 +54,19 @@ Hyperparameters are as follows:
 *Gamma*: 0.999  
 *Batch size*: 2 
 ![rewardvtime](./images/single_cpu.png)
-This agent converged to a reward of ~100 after roughly 9000 episodes. Further training did improve the model, but only slightly.  Below is a gif of the agent landing the vehicle after 21000 training episodes; for more discussion on the results of this model, see [blog post 2]{{blog}}
+This agent converged to a reward of ~100 after roughly 9000 episodes. Further training did improve the model, but only slightly.  Below is a gif of the agent landing the vehicle after 21000 training episodes; for more discussion on the results of this model, see [blog post 2](./blog.md)
+![lunarlander21000](./images/21000_Episodes.gif)
+
+
+### Atari Brickbreaker
+Atari Brickbreaker is the classic example from Deepmind's seminal 2013 paper on Deep Reinforcement Learning. The game is ubiquidous; Google even turned their image search into an atari breakout game for the it's 37th anniversary (which happened to coincide with the year the Deepmind paper was published). We attempted to train a policy gradient agent to play this classic game. 
+#### System Architecture
+The first step in this model is preprocessing of the images from the OpenAi gym emulator. The Atari game provides a 210 × 160 pixel image with full color, which we greyscale and downsample to 105x80. Next we crop the image to 80x80. 4 sequential images are stacked and used as input for the policy network. 
+The Atari policy network is the same as the one used in Deepmind's paper. From the paper: "The first hidden layer convolves 16 8 × 8 filters with stride 4 with the input image and applies a rectifier nonlinearity. The second hidden layer convolves 32 4 × 4 filters with stride 2, again followed by a rectifier nonlinearity. The final hidden layer is fully-connected and consists of 256 rectifier units. The output layer is a fullyconnected linear layer with a single output for each valid action." We have added on a Softmax function as a final step.
+#### Result
+Unfortunately, we haven't been able to get this agent to train. One downside to Deep Reinforcement learning is the sensitivity of models to hyperparameters, and we haven't been able to find a combination of parameters that work well. I've found that too high of a learning rate results in a unstable model whose loss function exponentially increases, but too low of a learning rate doesn't seem to minimize the loss function over time. Below is a plot of the reward of the model with a learning rate of 0.00003; even given 8 hours to train over ~32000 episodes, the model doesn't improve at all. 
+![failuretraining](./images/training_attempt_atari.png)
+
 
 ## Reflection
 ### Challenges
