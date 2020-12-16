@@ -9,7 +9,11 @@ filename: home
 ## Project Description
 
 
+
+
 ## Motivation
+Reinforcement learning is a topic applicable to many, many problems in computer science and in robotics. We are interested in taking a broad survey of the field and focusing in on deep reinforcement learning. We hope to learn as much about the topic as we can in the time given, and use that knowledge to implement a deep RL agent to optimize reward in increasingly complex environments, culminating with an Atari game. 
+
 
 ## Mathematical Concepts
 
