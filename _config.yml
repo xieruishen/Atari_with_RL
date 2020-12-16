@@ -1,1 +1,8 @@
-theme: jekyll-theme-cayman
+theme: jekyll-theme-minimal
+markdown: kramdown
+
+title: Deep Reinforcement Learning
+description: Final project for Computational Robotics at Olin College, Fall 2020
+
+logo: "logo.png"
+show_downloads: "false"

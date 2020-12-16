@@ -1,3 +1,12 @@
+---
+title: Blog
+layout: template
+filename: blog
+--- 
+
+
+
+
 # Reinforcement Learning Atari Agent
 ### xieruishen & barlowr
 
