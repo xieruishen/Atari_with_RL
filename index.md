@@ -7,9 +7,7 @@ filename: home
 
 # Applications of Deep Reinforcement Learning
 ## Project Description
-
-
-
+For this project, we learned about Deep Q Learning for training an agent to complete certain tasks with reinforcement learning. Specifically, we looked into the Deep Q Network model introduced in the [DQN paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf) by Deep Mind. To consolidated our understanding of this topic, we implemented Q learning and Deep Q learning algorithms to applications including Tic Tac Toe, Mancala, Path finding, and environments in OpenAi Gym(Mountain Car, Lunar Lander  and Atari Breakout).
 
 ## Motivation
 Reinforcement learning is a topic applicable to many, many problems in computer science and in robotics. We are interested in taking a broad survey of the field and focusing in on deep reinforcement learning. We hope to learn as much about the topic as we can in the time given, and use that knowledge to implement a deep RL agent to optimize reward in increasingly complex environments, culminating with an Atari game.
@@ -25,6 +23,12 @@ Bellman Equation: [Source](https://www.freecodecamp.org/news/an-introduction-to-
 
 The Q Learning agent learns an action-value function, Q, which directly approximates q⇤, the optimal action-value functionfor the environment.  
 At any given state, a random draw with probability epsilon is made to decide whether to take a random valid action, or to take an action that optimizes the chances of winning based on an internal graph of rewards (The Q graph). The state is then updated based on the action and the action of the opponent, and another draw is made for the new state. When the game reaches completion, a reward, based on whether the agent won or lost, is then back propagated through the graph of the prior state action pairs to map out the probability of reward given each action at each state, Q. This graph is populated by playing the game, so over time the agent gets better and better at maximizing the reward over time.
+
+### Policy Gradients
+
+While Q Learning works to approximate a Q function using a NN, the Policy Gradient approach seeks to directly optimize in the policy space. Concretely, the policy gradient network directly outputs action probabilities given the current state, while Q learning outputs a likelihood of probable future reward for each action given the current state. [It has been show](https://arxiv.org/abs/1602.01783) that policy gradients work better than DQN when tuned well. Policy gradients are also considered to be more widely applicable then DQNs, especially in situations where the Q function is too complex to be learned.
+
+John Lambert has written a great post on the math behind policy gradients, which can be found [here](https://johnwlambert.github.io/policy-gradients/#:~:text=As%20opposed%20to%20Deep%20Q,to%20approximate%20than%20value%20function.)
 
 ## Implementation
 ### Tic Tac Toe and Mancala
@@ -67,8 +71,6 @@ The implementation of training an RL agent to play mountain car using DQN can be
 ![mountain_car_runtime](./images/moutain-car-linear-testing-after-151-episodes.gif)
 
 ### Policy Gradients
-While Q Learning works to approximate a Q function using a NN, the Policy Gradient approach seeks to directly optimize in the policy space. Concretely, the policy gradient network directly outputs action probabilities given the current state, while Q learning outputs a likelihood of probable future reward for each action given the current state. I chose to write my model as a policy gradient network as [it has been show](https://arxiv.org/abs/1602.01783) that policy gradients work better than DQN when tuned well. Policy gradients are also considered to be more widely applicable then DQNs, especially in situations where the Q function is too complex to be learned.
-
 ### [Lunar Lander](https://gym.openai.com/envs/LunarLander-v2/)
 This environment is a simulated "lunar landing," where the agent is tasked with landing a vehicle on a randomized "surface of the moon" using 3 engines. This is a standard environment in the OpenAi gym, and information about the reward schema can be found at the link above.  
 One important note: to speed up training time, I limited the length of episodes from 1000 frames to 400 frames. This is still plenty of time for the agent to land, but cuts down on unproductive time spent hovering above the lunar surface.
@@ -103,4 +105,10 @@ One of our implementation of training RL agent to play Breakout with DQN can be 
 Even though the score of the agent playing breakout didn't improve at all after 12000 episodes, the average of the maximum q values for each episode did converge. This is shown in the figure below.
 ![failure_training_qvalues](./images/breakout_DQN_qvalues.png)
 
-This is a similar behavior as described in the [DQN paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf). In the original paper. In the paper, the model was able to improve the agent's score slowly and the q value convergence is much more quickly and consistently. In the paper, they have trained the agent for 10 million frames which is also much larger than our training duration. It would be interesting to see as a next step if we will get similar result on the score after continuing training the model for similar duration as the paper, 
+This is a similar behavior as described in the [DQN paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf). In the original paper. In the paper, the model was able to improve the agent's score slowly and the q value convergence is much more quickly and consistently. In the paper, they have trained the agent for 10 million frames which is also much larger than our training duration. It would be interesting to see as a next step if we will get similar result on the score after continuing training the model for similar duration as the paper,
+
+
+## Reflection
+This was a fascinating project, and we both took away a lot from it. We found deep reinforcement learning to be quite a diifcult task to implement well, even given the great tools at our disposal. At the same time, it's quite evident that deep rl is an incredibly powerful tool.
+### Next Steps
+We plan to continue to work on the Atari implementation with both policy gradient and DQN approaches for the foreseable future; a working agent would be a great achievement. We're also interested in creating other robotic simmulations in the OpenAi gym framework to train further models.
