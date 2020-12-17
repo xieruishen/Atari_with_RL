@@ -100,5 +100,6 @@ Unfortunately, we haven't been able to get this agent to train. One downside to 
 
 
 ## Reflection
-
+This was a fascinating project, and we both took away a lot from it. We found deep reinforcement learning to be quite a diifcult task to implement well, even given the great tools at our disposal. At the same time, it's quite evident that deep rl is an incredibly powerful tool. 
 ### Next Steps
+We plan to continue to work on the Atari implementation with both policy gradient and DQN approaches for the foreseable future; a working agent would be a great achievement. We're also interested in creating other robotic simmulations in the OpenAi gym framework to train further models.
