@@ -41,10 +41,11 @@ link to blog post section
 
 ### Deep Q Learning with Experience Replay
 ### Deep Q Network
+![dqn_network_architecture](./images/DQN_Network_Architecture.png)
 
 ### [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/)
 #### System Architecture
-![mountain_car_sys_arch](./images/DQN_System_Architecture.png){width = 200%}
+![mountain_car_sys_arch](./images/DQN_System_Architecture.png)
 
 #### Result
 ![mountain_car_duration](./images/mountain_car_linear_duration_plot_final.png)
