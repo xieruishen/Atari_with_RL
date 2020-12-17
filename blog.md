@@ -24,7 +24,7 @@ As a first step, we read the first 3 chapters of [this book](http://incompleteid
 
 Below I've included a few different plots of the win percentage of the RL agent and the number of state action pairs mapped over time, with our agent playing against an opponent who makes simple moves. I've included a few different values for epsilon, to show the effect that it has on the number of state-action pairs mapped and the success of the agent.
 
-<img src = "images/mancala_epsilon_01_fixed.png" width = 32%><img src = "images/mancala_epsilon_1_fixed.png" width = 32%><img src = "images/mancala_epsilon_2_fixed.png" width = 32%>
+<img src = "https://github.com/xieruishen/Atari_with_RL/blob/main/images/mancala_epsilon_01_fixed.png" width = 32%><img src = "https://github.com/xieruishen/Atari_with_RL/blob/main/images/mancala_epsilon_1_fixed.png" width = 32%><img src = "https://github.com/xieruishen/Atari_with_RL/blob/main/images/mancala_epsilon_2.png" width = 32%>
 
 
 
@@ -32,7 +32,7 @@ Each agent was trained 10000 times, and the win percentage and states mapped wer
 
 In implementing this agent, I accidentally introduced an interesting bug into the system. I wasn't taking into account the number of times a node in the reward graph had been previously updated, so nodes leading to more explored areas had a arbitrarily high Q value. This would lead to the agent choosing not simply to follow the path that lead to the highest probability of high reward, but to follow the path that had the highest number of mapped positive reward end states.  This might be an useful variation on the model, but it didn't lead to success in Mancala; below is the plot of the win percentage of this bugged version of the agent (compare this to the win percentage over time of the above plot with epsilon = 0.2). Note that the title is wrong; in this plot, 1 step = 1000 training rounds, which accounts for the increased magnitude of state/action pairs mapped.
 
-<img src= "images/mancala_epsilon_2.png" width = 50%>
+<img src= "https://github.com/xieruishen/Atari_with_RL/blob/main/images/mancala_epsilon_2.png" width = 50%>
 
 
 #### 11/22/20 - 11/23/20 (Sherrie)
