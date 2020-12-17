@@ -24,6 +24,10 @@ Bellman Equation: [Source](https://www.freecodecamp.org/news/an-introduction-to-
 The Q Learning agent learns an action-value function, Q, which directly approximates q⇤, the optimal action-value functionfor the environment.  
 At any given state, a random draw with probability epsilon is made to decide whether to take a random valid action, or to take an action that optimizes the chances of winning based on an internal graph of rewards (The Q graph). The state is then updated based on the action and the action of the opponent, and another draw is made for the new state. When the game reaches completion, a reward, based on whether the agent won or lost, is then back propagated through the graph of the prior state action pairs to map out the probability of reward given each action at each state, Q. This graph is populated by playing the game, so over time the agent gets better and better at maximizing the reward over time.
 
+### Deep Q Network
+Through working on our first goal, we found that in the simple examples, we were able to store a complete q table of all state action pairs. Additionally, the environment is simple enough for the agent to reach the goal stack relatively quickly and therefore the back propagation of all history states does not take too much time. These benefits from the simple examples do not hold true for more complicated environments in the OpenAI gym which leads us to understanding the Deep Q Network model and using it to predict the q value instead of using a q table.
+![dqn_network_architecture](./images/DQN_Network_Architecture.png)
+
 ### Policy Gradients
 
 While Q Learning works to approximate a Q function using a NN, the Policy Gradient approach seeks to directly optimize in the policy space. Concretely, the policy gradient network directly outputs action probabilities given the current state, while Q learning outputs a likelihood of probable future reward for each action given the current state. [It has been show](https://arxiv.org/abs/1602.01783) that policy gradients work better than DQN when tuned well. Policy gradients are also considered to be more widely applicable then DQNs, especially in situations where the Q function is too complex to be learned.
@@ -49,8 +53,6 @@ The implementation of a path finding agent using Q learning can be found in this
 ![states_count](./images/path_finding_states_num.png)
 
 ### Deep Q Network
-![dqn_network_architecture](./images/DQN_Network_Architecture.png)
-
 ### [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/)
 The implementation of training an RL agent to play mountain car using DQN can be found in this [Google Colab Notebook](https://colab.research.google.com/drive/1sbthl71ECC5GGnlbgaBz0J_SpBhgmY_N?usp=sharing).
 #### System Architecture
