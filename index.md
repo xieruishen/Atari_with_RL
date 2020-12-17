@@ -37,15 +37,13 @@ See [Blog post 1](./blog.md)
 ![q_learning](./images/Q_Learning_Process.png)
 
 #### Result
-[Link](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7)  to full Google Collab Notebook.
+The implementation of a path finding agent using Q learning can be found in this [Google Colab Notebook](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7).
 
 ![route](./images/path_finding_route.png)
 
 ![runtime](./images/path_finding_runtime.png)
 ![states_count](./images/path_finding_states_num.png)
 
-
-### Deep Q Learning with Experience Replay
 ### Deep Q Network
 ![dqn_network_architecture](./images/DQN_Network_Architecture.png)
 
@@ -93,12 +91,16 @@ Atari Brickbreaker is the classic example from Deepmind's seminal 2013 paper on 
 The first step in this model is preprocessing of the images from the OpenAi gym emulator. The Atari game provides a 210 × 160 pixel image with full color, which we greyscale and downsample to 105x80. Next we crop the image to 80x80. 4 sequential images are stacked and used as input for the policy network.
 The Atari policy network is the same as the one used in Deepmind's paper. From the paper: "The first hidden layer convolves 16 8 × 8 filters with stride 4 with the input image and applies a rectifier nonlinearity. The second hidden layer convolves 32 4 × 4 filters with stride 2, again followed by a rectifier nonlinearity. The final hidden layer is fully-connected and consists of 256 rectifier units. The output layer is a fullyconnected linear layer with a single output for each valid action." We have added on a Softmax function as a final step.
 #### Result
-One of our implementation of training RL agent to play Breakout with DQN can be viewed in this [Google Collab Notebook](https://colab.research.google.com/drive/1k_Kx8ax5jTcOy3BkU5FgZZFeSLa1Gped?usp=sharing).
-
 Unfortunately, we haven't been able to get this agent to train. One downside to Deep Reinforcement learning is the sensitivity of models to hyperparameters, and we haven't been able to find a combination of parameters that work well. I've found that too high of a learning rate results in a unstable model whose loss function exponentially increases, but too low of a learning rate doesn't seem to minimize the loss function over time. Below is a plot of the reward of the model with a learning rate of 0.00003; even given 8 hours to train over ~32000 episodes, the model doesn't improve at all.
 ![failuretraining](./images/training_attempt_atari.png)
 
+One of our implementation of training RL agent to play Breakout with DQN can be viewed in this [Google Collab Notebook](https://colab.research.google.com/drive/1k_Kx8ax5jTcOy3BkU5FgZZFeSLa1Gped?usp=sharing). After training for 12000 episodes before we ran out of RAM in Google Colab, the best score the agent has achieved is 3 per life. This is shown in the figure below.
+![failuretraining](./images/breakout_DQN_score.png)
 
-## Reflection
+#### Agent playing Breakout after training for 12000 Episodes
+![failure_training_score](./images/breakout-testing1.gif)
 
-### Next Steps
+Even though the score of the agent playing breakout didn't improve at all after 12000 episodes, the average of the maximum q values for each episode did converge. This is shown in the figure below.
+![failure_training_qvalues](./images/breakout_DQN_qvalues.png)
+
+This is a similar behavior as described in the [DQN paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf). In the original paper. In the paper, the model was able to improve the agent's score slowly and the q value convergence is much more quickly and consistently. In the paper, they have trained the agent for 10 million frames which is also much larger than our training duration. It would be interesting to see as a next step if we will get similar result on the score after continuing training the model for similar duration as the paper, 
