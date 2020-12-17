@@ -28,15 +28,13 @@ At any given state, a random draw with probability epsilon is made to decide whe
 #### Result
 link to blog post section
 ### Path Finding
-<img src= "./images/path_finding_environment.png" width = 46%>
+![path_env](./images/path_finding_environment.png){width = 46%}
 
 #### System Architecture
 
 #### Result
-<img src= "./images/path_finding_route.png" width = 46%>
-
+![route](./images/path_finding_route.png){width = 46%}
 ![runtime](./images/path_finding_runtime.png)
-
 ![states_count](./images/path_finding_states_num.png)
 
 
@@ -45,7 +43,7 @@ link to blog post section
 
 ### [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/)
 #### System Architecture
-![mountain_car_sys_arch](./images/DQN_System_Architecture.png)
+![mountain_car_sys_arch](./images/DQN_System_Architecture.png){width = 200%}
 
 #### Result
 ![mountain_car_duration](./images/mountain_car_linear_duration_plot_final.png)
