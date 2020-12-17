@@ -28,13 +28,15 @@ At any given state, a random draw with probability epsilon is made to decide whe
 #### Result
 link to blog post section
 ### Path Finding
-![path_environment](./images/path_finding_environment.png)
+<img src= "./images/path_finding_environment.png" width = 46%>
 
 #### System Architecture
 
 #### Result
-![route](./images/path_finding_route.png)
+<img src= "./images/path_finding_route.png" width = 46%>
+
 ![runtime](./images/path_finding_runtime.png)
+
 ![states_count](./images/path_finding_states_num.png)
 
 
