@@ -26,6 +26,12 @@ Bellman Equation: [Source](https://www.freecodecamp.org/news/an-introduction-to-
 The Q Learning agent learns an action-value function, Q, which directly approximates q⇤, the optimal action-value functionfor the environment.  
 At any given state, a random draw with probability epsilon is made to decide whether to take a random valid action, or to take an action that optimizes the chances of winning based on an internal graph of rewards (The Q graph). The state is then updated based on the action and the action of the opponent, and another draw is made for the new state. When the game reaches completion, a reward, based on whether the agent won or lost, is then back propagated through the graph of the prior state action pairs to map out the probability of reward given each action at each state, Q. This graph is populated by playing the game, so over time the agent gets better and better at maximizing the reward over time.
 
+### Policy Gradients
+
+While Q Learning works to approximate a Q function using a NN, the Policy Gradient approach seeks to directly optimize in the policy space. Concretely, the policy gradient network directly outputs action probabilities given the current state, while Q learning outputs a likelihood of probable future reward for each action given the current state. [It has been show](https://arxiv.org/abs/1602.01783) that policy gradients work better than DQN when tuned well. Policy gradients are also considered to be more widely applicable then DQNs, especially in situations where the Q function is too complex to be learned.
+
+John Lambert has written a great post on the math behind policy gradients, which can be found [here](https://johnwlambert.github.io/policy-gradients/#:~:text=As%20opposed%20to%20Deep%20Q,to%20approximate%20than%20value%20function.)
+
 ## Implementation
 ### Tic Tac Toe and Mancala
 See [Blog post 1](./blog.md)
@@ -69,8 +75,6 @@ The implementation of training an RL agent to play mountain car using DQN can be
 ![mountain_car_runtime](./images/moutain-car-linear-testing-after-151-episodes.gif)
 
 ### Policy Gradients
-While Q Learning works to approximate a Q function using a NN, the Policy Gradient approach seeks to directly optimize in the policy space. Concretely, the policy gradient network directly outputs action probabilities given the current state, while Q learning outputs a likelihood of probable future reward for each action given the current state. I chose to write my model as a policy gradient network as [it has been show](https://arxiv.org/abs/1602.01783) that policy gradients work better than DQN when tuned well. Policy gradients are also considered to be more widely applicable then DQNs, especially in situations where the Q function is too complex to be learned.
-
 ### [Lunar Lander](https://gym.openai.com/envs/LunarLander-v2/)
 This environment is a simulated "lunar landing," where the agent is tasked with landing a vehicle on a randomized "surface of the moon" using 3 engines. This is a standard environment in the OpenAi gym, and information about the reward schema can be found at the link above.  
 One important note: to speed up training time, I limited the length of episodes from 1000 frames to 400 frames. This is still plenty of time for the agent to land, but cuts down on unproductive time spent hovering above the lunar surface.
