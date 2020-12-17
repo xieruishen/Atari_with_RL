@@ -54,7 +54,8 @@ The implementation of a path finding agent using Q learning can be found in this
 
 ### Deep Q Network
 ### [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/)
-The implementation of training an RL agent to play mountain car using DQN can be found in this [Google Colab Notebook](https://colab.research.google.com/drive/1sbthl71ECC5GGnlbgaBz0J_SpBhgmY_N?usp=sharing).
+The implementation of training an RL agent to play mountain car using DQN can be found in this [Google Colab Notebook](https://colab.research.google.com/drive/1sbthl71ECC5GGnlbgaBz0J_SpBhgmY_N?usp=sharing). From tuning the DQN model, we found expanding the single state input to include 4 history states drastically improves the convergence rate.
+
 #### System Architecture
 ![mountain_car_sys_arch](./images/DQN_System_Architecture.png)
 
