@@ -50,6 +50,7 @@ See [Blog post 1](./blog.md)
 ![dqn_network_architecture](./images/DQN_Network_Architecture.png)
 
 ### [Mountain Car](https://gym.openai.com/envs/MountainCar-v0/)
+The implementation of training an RL agent to play mountain car using DQN can be found in this [Google Colab Notebook](https://colab.research.google.com/drive/1sbthl71ECC5GGnlbgaBz0J_SpBhgmY_N?usp=sharing).
 #### System Architecture
 ![mountain_car_sys_arch](./images/DQN_System_Architecture.png)
 
@@ -92,14 +93,12 @@ Atari Brickbreaker is the classic example from Deepmind's seminal 2013 paper on 
 The first step in this model is preprocessing of the images from the OpenAi gym emulator. The Atari game provides a 210 × 160 pixel image with full color, which we greyscale and downsample to 105x80. Next we crop the image to 80x80. 4 sequential images are stacked and used as input for the policy network.
 The Atari policy network is the same as the one used in Deepmind's paper. From the paper: "The first hidden layer convolves 16 8 × 8 filters with stride 4 with the input image and applies a rectifier nonlinearity. The second hidden layer convolves 32 4 × 4 filters with stride 2, again followed by a rectifier nonlinearity. The final hidden layer is fully-connected and consists of 256 rectifier units. The output layer is a fullyconnected linear layer with a single output for each valid action." We have added on a Softmax function as a final step.
 #### Result
+One of our implementation of training RL agent to play Breakout with DQN can be viewed in this [Google Collab Notebook](https://colab.research.google.com/drive/1k_Kx8ax5jTcOy3BkU5FgZZFeSLa1Gped?usp=sharing).
+
 Unfortunately, we haven't been able to get this agent to train. One downside to Deep Reinforcement learning is the sensitivity of models to hyperparameters, and we haven't been able to find a combination of parameters that work well. I've found that too high of a learning rate results in a unstable model whose loss function exponentially increases, but too low of a learning rate doesn't seem to minimize the loss function over time. Below is a plot of the reward of the model with a learning rate of 0.00003; even given 8 hours to train over ~32000 episodes, the model doesn't improve at all.
 ![failuretraining](./images/training_attempt_atari.png)
 
 
 ## Reflection
-### Challenges
-### Next Steps
 
-documentation requirement:
-Show it off: Describe the main idea of your project. What does your system do? Why would you want to do this? What are the major components to your system and how do they fit together? Hopefully you will have some cool videos to put in the website by this point.
-System architecture: In detail describe each component of your project. Make sure to touch upon both code structure as well as algorithms.
+### Next Steps

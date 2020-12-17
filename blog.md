@@ -36,7 +36,7 @@ In implementing this agent, I accidentally introduced an interesting bug into th
 
 
 #### 11/22/20 - 11/23/20 (Sherrie)
-[Link](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7)  to full Google Collab Notebook.
+The implementation of a path finding agent using Q learning can be found in this [Google Colab Notebook](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7).
 
 Additionally, I implemented a path finding agent using Reinforcement Learning following this [tutorial](https://towardsdatascience.com/implement-grid-world-with-q-learning-51151747b455). The grid environment and result is shown below.
 ##### Grid World:
@@ -124,6 +124,8 @@ As a final note, a perceptive eye will notice that even after 21000 episodes, th
 It would seem to me that I could easily speed this up by computing each episode in the batch on a separate, parallel process to utilize all 12 cores in my pc instead of computing sequentially on a single core. I rewrote the model to use python multiprocessing "Pool", but I haven't had much success getting it to work correctly; the model trains, but has very strange behavior. Sometimes it will seem to optimize for low reward, other times it will get to a medium reward and sit there for a thousand episodes and then drop off. Interestingly enough, I can run the same exact code without the Pool functionality,  and it works fine. I think it might have something to do with the way that Pool interacts with PyTorch, but I don't know enough about either under the hood to know why it doesn't work.
 
 ##### 12/9 (Sherrie) Failed DQN with convolutional layers for Mountain Car
+The implementation of training an RL agent to play mountain car using DQN with both convolutional and linear layers can be found in this[Google Colab Notebook](https://colab.research.google.com/drive/1FCeh7rXWdJ5HArKBU8q8tJibyevTGk3w?usp=sharing).
+
 
 ![mountain_car_conv_duration](images/mountain_car_conv_average_max_q_value_final.png)
 ![mountain_car_conv_runtime](images/mountain_car_conv_runtime_plot_final.png)
