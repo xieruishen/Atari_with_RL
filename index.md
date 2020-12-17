@@ -18,21 +18,27 @@ Reinforcement learning is a topic applicable to many, many problems in computer 
 ## Mathematical Concepts
 
 ### Q Learning
-Q-Learning is a method used to map out reward spaces in a finate markov chain environment. The Q Learning agent learns an action-value function, Q, which directly approximates q⇤, the optimal action-value functionfor the environment.  
+Q-Learning is a method used to map out reward spaces in a finate markov chain environment.
+
+Bellman Equation: [Source](https://www.freecodecamp.org/news/an-introduction-to-q-learning-reinforcement-learning-14ac0b4493cc/)
+![bellman_eqation](./images/Bellman_Equation.png)
+
+The Q Learning agent learns an action-value function, Q, which directly approximates q⇤, the optimal action-value functionfor the environment.  
 At any given state, a random draw with probability epsilon is made to decide whether to take a random valid action, or to take an action that optimizes the chances of winning based on an internal graph of rewards (The Q graph). The state is then updated based on the action and the action of the opponent, and another draw is made for the new state. When the game reaches completion, a reward, based on whether the agent won or lost, is then back propagated through the graph of the prior state action pairs to map out the probability of reward given each action at each state, Q. This graph is populated by playing the game, so over time the agent gets better and better at maximizing the reward over time.
 
 ## Implementation
 ### Tic Tac Toe and Mancala
+See [Blog post 1](./blog.md)
 
-#### System Architecture
-#### Result
-link to blog post section
 ### Path Finding
 ![path_env](./images/path_finding_environment.png)
 
 #### System Architecture
+![q_learning](./images/Q_Learning_Process.png)
 
 #### Result
+[Link](https://colab.research.google.com/drive/1yQbzTMDOjbsEC-VppzQcCXTNocpRDZl7)  to full Google Collab Notebook.
+
 ![route](./images/path_finding_route.png)
 
 ![runtime](./images/path_finding_runtime.png)

@@ -52,10 +52,10 @@ The final result of training an RL agent for 300 rounds to find the optimal path
 
 Grid World (left) & Optimal Path(right):
 
-<img src= "./images/path_finding_environment.png" width = 46%> <img src= "./images/path_finding_route.png" width = 46%>
+<img src= "https://github.com/xieruishen/Atari_with_RL/blob/main/images/path_finding_environment.png" width = 46%> <img src= "https://github.com/xieruishen/Atari_with_RL/blob/main/images/path_finding_route.png" width = 46%>
 
 Runtime(seconds) per Round (left) & Total Number of Explored States per Round(right):
-<img src= "./images/path_finding_runtime.png" width = 46%> <img src= "./images/path_finding_states_num.png" width = 46%>
+<img src= "https://github.com/xieruishen/Atari_with_RL/blob/main/images/path_finding_runtime.png" width = 46%> <img src= "https://github.com/xieruishen/Atari_with_RL/blob/main/images/path_finding_states_num.png" width = 46%>
 
 ### Blog 1.1
 
